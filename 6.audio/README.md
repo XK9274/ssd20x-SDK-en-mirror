@@ -1,19 +1,19 @@
-# 概要
+# Summary
 
-- 音频相关 DMEO
+- Audio related DMEO
 
 ## ai_ao_ini
 
-- 若不存在ini文件则会默认创建，之后运行demo，会自动加载ini内部的参数来设置AI、AO
-- SSD202 - v030版本的SDK验证
-- 主要使用MI的AI、AO的接口
-- **运行demo时，会在运行路径下创建ini文件，需要确保当前运行的文件夹有写的权限。否则可能运行失败**
-- [详细说明](./ai_ao_ini/README.md)；
+- If the ini file does not exist, it will be created by default. After running the demo, the parameters inside the ini will be automatically loaded to set AI and AO.
+- SSD202 - SDK verification for v030 version
+- Mainly use MI’s AI and AO interfaces
+- **When running the demo, an ini file will be created in the running path. You need to ensure that the currently running folder has write permissions. Otherwise, the operation may fail**
+- [Details](./ai_ao_ini/README.md);
 
 ## mp3_player
 
-- 原厂简单MP3播放 <https://gitee.com/mFlying/RunTimeDemo/tree/master/MultiPlayer/mp3player>
-- 运行
+- Original simple MP3 player <https://gitee.com/mFlying/RunTimeDemo/tree/master/MultiPlayer/mp3player>
+- run
 
 ```shell
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib
@@ -22,8 +22,8 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib
 
 ## alsa_playback_1
 
-- 简单调用alsa playback 播放音频测试
-- 环境中需要存在alsa lib以及相关配置
+- Simply call alsa playback to play the audio test
+- alsa lib and related configurations need to exist in the environment
 
 ```shell
 ./alsa_playback_1 ./res/48K_16bit_STERO_30s.wav
@@ -31,9 +31,9 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib
 
 ## alsa_playback_2
 
-- 简单调用alsa playback以及mixer 播放音频测试
-- 环境中需要存在alsa lib以及相关配置
-- 可调整音量
+- Simply call alsa playback and mixer to play audio tests
+- alsa lib and related configurations need to exist in the environment
+- Adjustable volume
 
 ```shell
 ./alsa_playback_2 ./res/48K_16bit_STERO_30s.wav 20000
