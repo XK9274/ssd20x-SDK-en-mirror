@@ -1,20 +1,20 @@
-# 简介
-- Perf3是一个主动测量IP网络上最大可实现带宽的工具。它支持与时间、缓冲区和协议(TCP、UDP、带有IPv4和IPv6的SCTP)相关的各种参数的调优。对于每个测试，它都会报告带宽、损耗和其他参数。这是一个新的实现，它不与原始iPerf共享代码，也不向后兼容。iPerf最初是由NLANR/DAST开发的。
-- 官网: https://iperf.fr/
-- 源码下载路径（也可通过官网自行查找）：https://github.com/esnet/iperf/releases 
-- 以下以当前（2021-09-01）最新release版本为例（3.10.1）
+# Introduction
+- Perf3 is a tool that actively measures the maximum achievable bandwidth on an IP network. It supports tuning of various parameters related to time, buffers and protocols (TCP, UDP, SCTP with IPv4 and IPv6). For each test, it reports bandwidth, loss, and other parameters. This is a new implementation that does not share code with the original iPerf and is not backwards compatible. iPerf was originally developed by NLANR/DAST.
+- Official website: https://iperf.fr/
+- Source code download path (you can also find it on the official website): https://github.com/esnet/iperf/releases
+- The following takes the current (2021-09-01) latest release version as an example (3.10.1)
 
-# 交叉编译
-## 环境
-- ubuntu20.04
-- 交叉编译工具 arm-linux-gnueabihf-gcc 8.2.1 20180802 (GNU Toolchain for the A-profile Architecture 8.2-2018-08 (arm-rel-8.23))
-- SSD20X SDK V30 版本
-- **res中为编译后的应用，可在SSD20x上直接运行**
+# Cross compile
+## environment
+-ubuntu20.04
+- Cross-compilation tool arm-linux-gnueabihf-gcc 8.2.1 20180802 (GNU Toolchain for the A-profile Architecture 8.2-2018-08 (arm-rel-8.23))
+- SSD20X SDK V30 version
+- **res is the compiled application, which can be run directly on SSD20x**
 
-### 解压、配置编译
-- 不支持ssl，需要开启ssl支持的话，自行修改编译
+### Decompress, configure and compile
+- SSL is not supported. If you need to enable SSL support, you must modify and compile it yourself.
 ```shell
-# 
+#
 tar -zxvf iperf-3.10.1.tar.gz
 cd iperf-3.10.1/
 mkdir build
@@ -31,100 +31,100 @@ CXXFLAGS=-static \
 --prefix=$PWD/build
 
 make -j8
-make install 
+make install
 ```
 
-# 使用方法
-### 测试命令
-eg：
+# Instructions
+### Test command
+e.g.:
 ```
-客户端：
+Client:
 iperf3 -c 192.168.1.100 -l50 -i1 -b100k -u -t14400 -p10000
-服务器：
+server:
 iperf3 -s -p10000 -i1 -V > D.txt
 ```
 ### iperf Done.
-- 参数
+- Parameters
 ```
--p, --port #，Server 端监听、Client 端连接的端口号；
+-p, --port #, the port number for server monitoring and client connection;
 
--f, --format [kmgKMG]，报告中所用的数据单位，Kbits, Mbits, KBytes, Mbytes；
+-f, --format [kmgKMG], the data unit used in the report, Kbits, Mbits, KBytes, Mbytes;
 
--i, --interval #，每次报告的间隔，单位为秒；
+-i, --interval #, the interval for each report, in seconds;
 
--F, --file name，测试所用文件的文件名。如果使用在 Client 端，发送该文件用作测试；如果使用在 Server 端，则是将数据写入该文件，而不是丢弃；
+-F, --file name, the file name of the file used for testing. If used on the client side, the file is sent for testing; if used on the server side, the data is written to the file instead of discarded;
 
--A, --affinity n/n,m，设置 CPU 亲和力；
+-A, --affinity n/n,m, set CPU affinity;
 
--B, --bind ，绑定指定的网卡接口；
+-B, --bind, bind the specified network card interface;
 
--V, --verbose，运行时输出更多细节；
+-V, --verbose, output more details when running;
 
--J, --json，运行时以 JSON 格式输出结果；
+-J, --json, output the results in JSON format during runtime;
 
---logfile f，输出到文件；
+--logfile f, output to file;
 
--d, --debug，以 debug 模式输出结果；
+-d, --debug, output results in debug mode;
 
--v, --version，显示版本信息并退出；
+-v, --version, display version information and exit;
 
--h, --help，显示帮助信息并退出。
+-h, --help, display help information and exit.
 ```
-- Server 端参数：
+- Server side parameters:
 ```
--s, --server，以 Server 模式运行；
+-s, --server, run in Server mode;
 
--D, --daemon，在后台以守护进程运行；
+-D, --daemon, runs as a daemon process in the background;
 
--I, --pidfile file，指定 pid 文件；
+-I, --pidfile file, specify the pid file;
 
--1, --one-off，只接受 1 次来自 Client 端的测试，然后退出。
+-1, --one-off, accept only 1 test from the client and then exit.
 ```
-- clinet 端参数
+- clinet side parameters
 ```
--c, --client ，以 Client 模式运行，并指定 Server 端的地址；
+-c, --client, run in Client mode and specify the address of the Server;
 
--u, --udp，以 UDP 协议进行测试；
+-u, --udp, test with UDP protocol;
 
--b, --bandwidth #[KMG][/#]，限制测试带宽。UDP 默认为 1Mbit/秒，TCP 默认无限制；
+-b, --bandwidth #[KMG][/#], limit the test bandwidth. UDP defaults to 1Mbit/second, TCP defaults to unlimited;
 
--t, --time #，以时间为测试结束条件进行测试，默认为 10 秒；
+-t, --time #, use time as the test end condition for testing, the default is 10 seconds;
 
--n, --bytes #[KMG]，以数据传输大小为测试结束条件进行测试；
+-n, --bytes #[KMG], test based on the data transfer size as the test end condition;
 
--k, --blockcount #[KMG]，以传输数据包数量为测试结束条件进行测试；
+-k, --blockcount #[KMG], test based on the number of transmitted data packets as the test end condition;
 
--l, --len #[KMG]，读写缓冲区的长度，TCP 默认为 128K，UDP 默认为 8K；
+-l, --len #[KMG], the length of the read and write buffer, the default is 128K for TCP and 8K for UDP;
 
---cport ，指定 Client 端运行所使用的 TCP 或 UDP 端口，默认为临时端口；
+--cport, specify the TCP or UDP port used by the client to run, the default is a temporary port;
 
--P, --parallel #，测试数据流并发数量；
+-P, --parallel #, test the number of concurrent data streams;
 
--R, --reverse，反向模式运行（Server 端发送，Client 端接收）；
+-R, --reverse, run in reverse mode (server sends, client receives);
 
--w, --window #[KMG]，设置套接字缓冲区大小，TCP 模式下为窗口大小；
+-w, --window #[KMG], set the socket buffer size, which is the window size in TCP mode;
 
--C, --congestion ，设置 TCP 拥塞控制算法（仅支持 Linux 和 FreeBSD ）；
+-C, --congestion, set the TCP congestion control algorithm (only supports Linux and FreeBSD);
 
--M, --set-mss #，设置 TCP/SCTP 最大分段长度（MSS，MTU 减 40 字节）；
+-M, --set-mss #, set the TCP/SCTP maximum segment length (MSS, MTU minus 40 bytes);
 
--N, --no-delay，设置 TCP/SCTP no delay，屏蔽 Nagle 算法；
+-N, --no-delay, set TCP/SCTP no delay, shield Nagle algorithm;
 
--4, --version4，仅使用 IPv4；
+-4, --version4, only use IPv4;
 
--6, --version6，仅使用 IPv6；
+-6, --version6, only use IPv6;
 
--S, --tos N，设置 IP 服务类型（TOS，Type Of Service）；
+-S, --tos N, set IP service type (TOS, Type Of Service);
 
--L, --flowlabel N，设置 IPv6 流标签（仅支持 Linux）；
+-L, --flowlabel N, set IPv6 flow label (supports Linux only);
 
--Z, --zerocopy，使用 “zero copy”（零拷贝）方法发送数据；
+-Z, --zerocopy, use the "zero copy" method to send data;
 
--O, --omit N，忽略前 n 秒的测试；
+-O, --omit N, ignore the first n seconds of testing;
 
--T, --title str，设置每行测试结果的前缀；
+-T, --title str, set the prefix of each line of test results;
 
---get-server-output，从 Server 端获取测试结果；
+--get-server-output, get the test results from the server;
 
---udp-counters-64bit，在 UDP 测试包中使用 64 位计数器（防止计数器溢出）。
+--udp-counters-64bit, use 64-bit counters in UDP test packets (prevent counter overflow).
 ```
