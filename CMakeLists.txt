@@ -1,0 +1,58 @@
+cmake_minimum_required(VERSION 3.10)
+project(ssd2xx-demo)
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# add_definitions("-Wall -g")
+
+string(ASCII 27 Esc)
+set(Red         "${Esc}[31m")
+set(Green       "${Esc}[32m")
+set(ColourReset "${Esc}[m")
+
+set(LIBRARY_OUTPUT_PATH    ${CMAKE_BINARY_DIR}/lib)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+
+if(CHIP STREQUAL "ssd20x")
+    message("${Green} 当前使用demo适用于：${CHIP} ${ColourReset}")
+    add_definitions(-DCHIP_SSD20X)
+    include_directories(${CMAKE_SOURCE_DIR}/0.common/ssd20x/include)
+    link_directories(${CMAKE_SOURCE_DIR}/0.common/ssd20x/ex_libs/dynamic)
+    link_directories(${CMAKE_SOURCE_DIR}/0.common/ssd20x/mi_libs/dynamic)
+
+elseif(CHIP STREQUAL "ssd2x2")
+    message("${Green} 当前使用demo适用于：${CHIP} ${ColourReset}")
+    add_definitions(-DCHIP_SSD2X2)
+    include_directories(${CMAKE_SOURCE_DIR}/0.common/ssd2x2/include)
+    link_directories(${CMAKE_SOURCE_DIR}/0.common/ssd2x2/ex_libs/dynamic)
+    link_directories(${CMAKE_SOURCE_DIR}/0.common/ssd2x2/mi_libs/dynamic)
+
+elseif(CHIP STREQUAL "mp157")
+    # eg：cmake -D CMAKE_TOOLCHAIN_FILE=toolchain_mp157.cmake -D CHIP=mp157 ..
+    message("${Green} 当前使用demo适用于：${CHIP} ${ColourReset}")
+    add_definitions(-DCHIP_MP157)
+
+else()
+    message("${Red} 请指定编译目标。eg：cmake -D CMAKE_TOOLCHAIN_FILE=toolchain.cmake -D CHIP=ssd20x .. ${ColourReset}" )
+    message("${Red} 编译详细过程可见 README.md ${ColourReset}" )
+    message(FATAL_ERROR)
+    
+endif()
+
+add_subdirectory(0.common)
+add_subdirectory(1.watchdog)
+add_subdirectory(2.panel)
+add_subdirectory(3.framebuffer)
+# add_subdirectory(4.littlevgl)
+add_subdirectory(5.wifi)
+add_subdirectory(6.audio)
+add_subdirectory(7.gpio)
+add_subdirectory(8.pwm)
+add_subdirectory(9.uart)
+add_subdirectory(10.video)
+add_subdirectory(11.mi_gfx)
+add_subdirectory(12.mi_disp)
+add_subdirectory(13.uuid)

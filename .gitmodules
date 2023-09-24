@@ -1,0 +1,30 @@
+[submodule "10.video/res/ssd20x_player_bin"]
+	path = 10.video/res/ssd20x_player_bin
+	url = https://gitee.com/mFlying/ssd20x_player_bin.git
+[submodule "4.littlevgl/lvgl"]
+	path = 4.littlevgl/lvgl
+	url = https://github.com/lvgl/lvgl
+[submodule "4.littlevgl/lv_demos"]
+	path = 4.littlevgl/lv_demos
+	url = https://github.com/lvgl/lv_demos
+[submodule "4.littlevgl/lv_drivers"]
+	path = 4.littlevgl/lv_drivers
+	url = https://github.com/lvgl/lv_drivers
+[submodule "4.littlevgl/lv_lib_png"]
+	path = 4.littlevgl/lv_lib_png
+	url = https://github.com/lvgl/lv_lib_png.git
+[submodule "4.littlevgl/lv_lib_gif"]
+	path = 4.littlevgl/lv_lib_gif
+	url = https://github.com/lvgl/lv_lib_gif.git
+[submodule "4.littlevgl/lv_lib_split_jpg"]
+	path = 4.littlevgl/lv_lib_split_jpg
+	url = https://github.com/lvgl/lv_lib_split_jpg.git
+[submodule "4.littlevgl/lv_fs_if"]
+	path = 4.littlevgl/lv_fs_if
+	url = https://github.com/lvgl/lv_fs_if.git
+[submodule "4.littlevgl/lv_lib_freetype"]
+	path = 4.littlevgl/lv_lib_freetype
+	url = https://github.com/lvgl/lv_lib_freetype.git
+[submodule "4.littlevgl/lv_lib_bmp"]
+	path = 4.littlevgl/lv_lib_bmp
+	url = https://github.com/lvgl/lv_lib_bmp.git

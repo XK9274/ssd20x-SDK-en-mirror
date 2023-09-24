@@ -1,0 +1,3 @@
+/root/workspace/test/ssd2xx-demo/4.littlevgl/CMakeFiles/rebuild_cache.dir
+/root/workspace/test/ssd2xx-demo/4.littlevgl/CMakeFiles/cp-lvgl.dir
+/root/workspace/test/ssd2xx-demo/4.littlevgl/CMakeFiles/edit_cache.dir
