@@ -1,18 +1,18 @@
-# 概要
-- 需要开启wifi功能，并拥有wifi相关库、工具。
+# Summary
+- You need to enable the wifi function and have wifi related libraries and tools.
 
 ## wifi_demo1
--  SSD202 - v030版本的SDK验证
--  使用MI的WLAN的接口
--  阻塞
--  连接超时为10秒
+- SSD202 - SDK verification for v030 version
+- Interface using MI WLAN
+- blocking
+- Connection timeout is 10 seconds
 
 ```shell
-# 表示需要操作的 wifi名称为 xxxxx 密码为12345678
-# 创建出来的ap名称为：xxxxx_ssd2xx
+# Indicates that the name of the wifi that needs to be operated is xxxxx and the password is 12345678
+# The name of the created ap is: xxxxx_ssd2xx
 ./wifi_demo1 xxxxx 12345678
 
-输入‘m‘， 切换STA/AP模式，默认是STA模式；
+Enter ‘m’ to switch STA/AP mode, the default is STA mode;
 printf("please input option command:\n");
 printf("m. switch STA/AP mode, input 'm'\n");
 printf("c. connect wifi hotspot, input 'n'\n");
@@ -22,19 +22,19 @@ printf("h. help\n");
 printf("q. exit, input 'q'\n\n");
 ```
 
-## wifi_sta_saync 
--  SSD202 - v030版本的SDK验证
--  使用MI的WLAN的接口
--  异步方式连接wifi
--  MI接口都是阻塞的，所以该DMEO中打开一个线程专门处理wifi配置，之后再通过回调函数返回给主线程。
--  使用到common-list 的接口
+## wifi_sta_saync
+- SSD202 - SDK verification for v030 version
+- Interface using MI WLAN
+- Connect to wifi asynchronously
+- MI interfaces are all blocking, so a thread is opened in the DMEO to specifically handle wifi configuration, and then returned to the main thread through the callback function.
+- Use the interface to common-list
 
 ```shell
-# 当wifi打开成功后，会提示输入如下命令操作。按提示操作即可
+# When wifi is opened successfully, you will be prompted to enter the following command. Just follow the prompts
 ./wifi_sta_saync
 
-    printf("please input option command:\n");
-    printf("g. 扫描wifi\n");
-    printf("c. 连接wifi,之后按提示输入\n");
-    printf("d. 手动断开wifi连接\n");
+     printf("please input option command:\n");
+     printf("g. Scan wifi\n");
+     printf("c. Connect to wifi, then enter as prompted\n");
+     printf("d. Manually disconnect wifi\n");
 ```
