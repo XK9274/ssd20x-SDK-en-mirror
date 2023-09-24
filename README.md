@@ -51,6 +51,17 @@ Original source: https://gitee.com/mFlying/ssd2xx-demo.git
 - Connotation sub-repository, you need to update the sub-repository if necessary after cloning
 
 ```shell
+     git clone https://github.com/XK9274/ssd20x-SDK-en-mirror
+     cd ssd2xx-demo
+     git submodule init
+     git submodule update
+```
+
+I had the best luck building it in the union toolchain (you'll need libmath if it's not already there, aswell as potentially libudev
+
+OR:
+
+```shell
      git clone https://gitee.com/mFlying/ssd2xx-demo.git
      cd ssd2xx-demo
      git submodule init
