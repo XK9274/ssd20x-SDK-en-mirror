@@ -1,13 +1,13 @@
-# 概要
+# Summary
 ### common
-- 看门狗通用API，可直接拷贝自行使用
+- Watchdog general API, you can copy it directly and use it yourself
 ### watchdog_test1
-- 简单看门狗demo，设置看门狗时间20秒，且不喂狗
+- Simple watchdog demo, set the watchdog time to 20 seconds, and do not feed the dog
 ### watchdog_test2
-- 命令形式，测试看门狗，具体命令格式可见运行后的提示。
-# 使用说明
-### kernel下配置
-- 执行 make menuconfig 打开看门狗驱动（Device Drivers  --->[*] SStar SoC platform drivers  ---><*>   watchdog driver）
-- 重新编译烧录kernel后，可见板上存在的 /dev/watchdog
-### 限制
-- 目前最小时间5秒，最大时间357秒（驱动限制，设置超过357秒后会溢出，如设置了400秒，实际设置的是 400-357=43秒）
+- Command form, test watchdog, the specific command format can be seen in the prompt after running.
+# Instructions for use
+### Kernel configuration
+- Execute make menuconfig to open the watchdog driver (Device Drivers --->[*] SStar SoC platform drivers ---><*> watchdog driver)
+- After recompiling and burning the kernel, /dev/watchdog existing on the board can be seen
+### limit
+- The current minimum time is 5 seconds and the maximum time is 357 seconds (driver limit, it will overflow after setting exceeds 357 seconds. If 400 seconds is set, the actual setting is 400-357=43 seconds)
