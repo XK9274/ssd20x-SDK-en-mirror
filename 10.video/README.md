@@ -1,121 +1,121 @@
-# 概要
-- 视频相关 DMEO
+# Summary
+- Video related DMEO
 
-## YUV 
-#### 1、简介
-- YUV，分为三个分量，“Y”表示明亮度（Luminance或Luma），也就是灰度值；而“U”和“V” 表示的则是色度（Chrominance或Chroma），作用是描述影像色彩及饱和度，用于指定像素的颜色。
-- 与我们熟知的RGB类似，YUV也是一种颜色编码方法，主要用于电视系统以及模拟视频领域，它将亮度信息（Y）与色彩信息（UV）分离，没有UV信息一样可以显示完整的图像，只不过是黑白的，这样的设计很好地解决了彩色电视机与黑白电视的兼容问题。并且，YUV不像RGB那样要求三个独立的视频信号同时传输，所以用YUV方式传送占用极少的频宽。
-#### 2、YUV存储格式
--   YUV码流的存储格式其实与其采样的方式密切相关，主流的采样方式有三种，YUV4:4:4，YUV4:2:2，YUV4:2:0，关于其详细原理，可以通过网上其它文章了解，这里我想强调的是如何根据其采样格式来从码流中还原每个像素点的YUV值，因为只有正确地还原了每个像素点的YUV值，才能通过YUV与RGB的转换公式提取出每个像素点的RGB值，然后显示出来。
-- 先记住下面这段话，以后提取每个像素的YUV分量会用到。
-	1. YUV 4:4:4采样，每一个Y对应一组UV分量8+8+8 = 24bits,3个字节。
-	2. YUV 4:2:2采样，每两个Y共用一组UV分量,一个YUV占8+4+4 = 16bits 2个字节。
-	3. YUV 4:2:0采样，每四个Y共用一组UV分量一个YUV占8+2+2 = 12bits  1.5个字节。
-#### 3、YUV420类型
-- **3.1、YUV420p和YUV420sp区别**
-- 因为YUV420比较常用， 在这里就重点介绍YUV420。YUV420分为两种：**YUV420p**和**YUV420sp**。
-- YUV420sp格式如下图：
+## YUV
+#### 1 Introduction
+- YUV, divided into three components, "Y" represents brightness (Luminance or Luma), which is the gray value; while "U" and "V" represent chrominance (Chrominance or Chroma), which is used to describe Image color and saturation, used to specify the color of pixels.
+- Similar to the well-known RGB, YUV is also a color coding method, mainly used in TV systems and analog video fields. It separates brightness information (Y) and color information (UV). A complete image can be displayed without UV information. , it’s just black and white. This design solves the compatibility problem between color TVs and black and white TVs. Moreover, YUV does not require three independent video signals to be transmitted at the same time like RGB, so YUV transmission takes up very little bandwidth.
+#### 2. YUV storage format
+- The storage format of YUV code stream is actually closely related to its sampling method. There are three mainstream sampling methods, YUV4:4:4, YUV4:2:2, YUV4:2:0. For its detailed principles, you can read other articles on the Internet. Understand, what I want to emphasize here is how to restore the YUV value of each pixel from the code stream according to its sampling format, because only when the YUV value of each pixel is correctly restored, it can be extracted through the YUV and RGB conversion formula Get the RGB value of each pixel and then display it.
+- Remember the following paragraph first, which will be used later to extract the YUV component of each pixel.
+1. YUV 4:4:4 sampling, each Y corresponds to a set of UV components 8+8+8 = 24bits, 3 bytes.
+2. YUV 4:2:2 sampling, every two Ys share a set of UV components, and one YUV occupies 8+4+4 = 16bits 2 bytes.
+3. YUV 4:2:0 sampling, every four Ys share a set of UV components, and one YUV occupies 8+2+2 = 12bits 1.5 bytes.
+#### 3. YUV420 type
+- **Differences between 3.1, YUV420p and YUV420sp**
+- Because YUV420 is more commonly used, we will focus on YUV420 here. YUV420 is divided into two types: **YUV420p** and **YUV420sp**.
+- The YUV420sp format is as shown below:
 ![YUV420sp](./doc/yuv420sp.png)
-- YUV420p格式如下图：
+- The YUV420p format is as shown below:
 ![YUV420sp](./doc/yuv420p.png)
 
-- **3.2、YUV420p和YUV420sp具体分类和详情**
+- **3.2, YUV420p and YUV420sp specific classification and details**
 ```
-YUV420p：又叫planer平面模式，Y ，U，V分别再不同平面，也就是有三个平面。
+YUV420p: Also called planner plane mode, Y, U, and V are in different planes, that is, there are three planes.
 
-YUV420p又分为：他们的区别只是存储UV的顺序不一样而已。
+YUV420p is further divided into: The only difference between them is the order in which UVs are stored.
 
-I420:又叫YU12，安卓的模式。存储顺序是先存Y，再存U，最后存V。YYYYUUUVVV
+I420: Also called YU12, Android mode. The storage order is to store Y first, then U, and finally V. YYYYUUUVVV
 
-YV12:存储顺序是先存Y，再存V，最后存U。YYYVVVUUU
+YV12: The storage order is to store Y first, then V, and finally U. YYYVVVUUU
 
-YUV420sp：又叫bi-planer或two-planer双平面，Y一个平面，UV在同一个平面交叉存储。
+YUV420sp: Also called bi-planer or two-planer, Y is a plane and UV is stored crosswise on the same plane.
 
-YUV420sp又分为：他们的区别只是存储UV的顺序不一样而已。
+YUV420sp is further divided into: The only difference between them is the order in which UVs are stored.
 
-NV12:IOS只有这一种模式。存储顺序是先存Y，再UV交替存储。YYYYUVUVUV
+NV12: IOS only has this mode. The storage order is to store Y first, then UV alternately. YYYYUVUVUV
 
-NV21:安卓的模式。存储顺序是先存Y，再存U，再VU交替存储。YYYYVUVUVU
+NV21: Android mode. The storage order is to store Y first, then U, and then VU alternately. YYYYVUVUVU
 ```
-- **3.3、YUV420的内存计算**
+- **3.3, YUV420 memory calculation**
 
-	1. width * hight =Y（总和）
-	2. U = Y / 4   V = Y / 4
-	3. 所以YUV420 数据在内存中的长度是 width * hight * 3 / 2（即一个YUV是1.5个字节），所以计算采集的数据大小：width * hight * 1.5*frame*time
-	4.以720×488大小图象YUV420 planar为例
+1. width * height =Y (sum)
+2. U = Y / 4 V = Y / 4
+3. So the length of YUV420 data in memory is width * hight * 3 / 2 (that is, one YUV is 1.5 bytes), so calculate the size of the collected data: width * hight * 1.5*frame*time
+4. Take the 720×488 size image YUV420 planar as an example
 ```
-其存储格式是： 共大小为720×480×3 × 1.5字节，
+Its storage format is: The total size is 720×480×3 × 1.5 bytes,
 
-分为三个部分:Y,U和V
+Divided into three parts: Y, U and V
 
-Y分量：    (720×480)个字节
+Y component: (720×480) bytes
 
-U(Cb)分量：(720×480 × 1/4)个字节
+U(Cb) component: (720×480 × 1/4) bytes
 
-V(Cr)分量：(720×480 × 1/4)个字节
+V(Cr) component: (720×480 × 1/4) bytes
 
-三个部分内部均是行优先存储，三个部分之间是Y,U,V 顺序存储。
+The three parts are all row-first stored, and the three parts are stored in Y, U, V order.
 
-即YUV数据的0－－720×480字节是Y分量值，
+That is, 0--720×480 bytes of YUV data are the Y component values.
 
-720×480－－720×480×5/4字节是U分量
+720×480--720×480×5/4 bytes is the U component
 
-720×480×5/4 －－720×480×3/2字节是V分量。
+720×480×5/4 - 720×480×3/2 bytes are the V component.
 
-一般来说，直接采集到的视频数据是RGB24的格式，RGB24一帧的大小size＝width×heigth×3 Bit，RGB32的size＝width×heigth×4，YUV标准格式4：2：0 的数据量是 size＝width×heigth×1.5 Bit。
+Generally speaking, the directly collected video data is in RGB24 format. The size of one frame of RGB24 is size=width×heigth×3 Bit. The size of RGB32 is=width×heigth×4. The data amount of YUV standard format is 4:2:0. It is size=width×heigth×1.5 Bit.
 
-在采集到RGB24数据后，需要对这个格式的数据进行第一次压缩。即将图像的颜色空间由RGB2YUV。因为，X264在进行编码的时候需要标准的YUV（4：2：0）。
+After collecting RGB24 data, the data in this format needs to be compressed for the first time. The color space of the image is determined by RGB2YUV. Because X264 requires standard YUV (4:2:0) when encoding.
 
-经过第一次数据压缩后RGB24－>YUV（I420）。这样，数据量将减少一半，经过X264编码后，数据量将大大减少。将编码后的数据打包，通过RTP实时传送。到达目的地后，将数据取出，进行解码。完成解码后，数据仍然是YUV格式的，所以，还需要一次转换，就是YUV2RGB24。
+After the first data compression, RGB24->YUV (I420). In this way, the amount of data will be reduced by half, and after X264 encoding, the amount of data will be greatly reduced. Pack the encoded data and transmit it in real time through RTP. After arriving at the destination, the data is taken out and decoded. After decoding is completed, the data is still in YUV format, so it needs another conversion, which is YUV2RGB24.
 ```
-- 详细可见  图解YU12、I420、YV12、NV12、NV21、YUV420P、YUV420SP、YUV422P、YUV444P的区别_handy周-CSDN博客 [https://blog.csdn.net/byhook/article/details/84037338]( https://blog.csdn.net/byhook/article/details/84037338)
+- For details, please see the diagram illustrating the differences between YU12, I420, YV12, NV12, NV21, YUV420P, YUV420SP, YUV422P, and YUV444P_handy Zhou-CSDN Blog [https://blog.csdn.net/byhook/article/details/84037338]( https ://blog.csdn.net/byhook/article/details/84037338)
 
-- 生产yuv图片
+- Produce yuv pictures
 ```shell
-	ffmpeg -i 1920_1080.jpg -s 1920x1080 -pix_fmt nv12 YUV420SP_1920_1080_NV12_img.yuv
+ffmpeg -i 1920_1080.jpg -s 1920x1080 -pix_fmt nv12 YUV420SP_1920_1080_NV12_img.yuv
 ```
 
 ## ssd2x2_yuv_play_test1
-- 显示yuv图片到panel
-- 支持1280*720以下
-- 212 YUV420 只支持 SP，NV12（E_MI_SYS_PIXEL_FRAME_YUV_SEMIPLANAR_420） 或 NV21（E_MI_SYS_PIXEL_FRAME_YUV_SEMIPLANAR_420_NV21）
-- 原厂yuv图片显示DMEO
+- Display yuv pictures to panel
+-Support 1280*720 or less
+- 212 YUV420 only supports SP, NV12 (E_MI_SYS_PIXEL_FRAME_YUV_SEMIPLANAR_420) or NV21 (E_MI_SYS_PIXEL_FRAME_YUV_SEMIPLANAR_420_NV21)
+- Original yuv picture shows DMEO
 ```
-	./YuvToPanel yuv_filename dispinwidth dispinheight dispoutwidth dispoutheight
-	eg:./ssd2x2_yuv_play_test1 ./res/YUV420SP_1024_600_img.yuv 1024 600 1024 600
+./YuvToPanel yuv_filename dispinwidth dispinheight dispoutwidth dispoutheight
+eg:./ssd2x2_yuv_play_test1 ./res/YUV420SP_1024_600_img.yuv 1024 600 1024 600
 ```
 
 ## ssd2x2_yuv_play_test1
-- 显示yuv视频，默认输出800*480到panel
-- 支持1280*720以下
-- 212 YUV420 只支持 SP，NV12（E_MI_SYS_PIXEL_FRAME_YUV_SEMIPLANAR_420） 或 NV21（E_MI_SYS_PIXEL_FRAME_YUV_SEMIPLANAR_420_NV21）
-- 原厂yuv图片显示DMEO
+- Display yuv video, output 800*480 to panel by default
+-Support 1280*720 or less
+- 212 YUV420 only supports SP, NV12 (E_MI_SYS_PIXEL_FRAME_YUV_SEMIPLANAR_420) or NV21 (E_MI_SYS_PIXEL_FRAME_YUV_SEMIPLANAR_420_NV21)
+- Original yuv picture shows DMEO
 ```
-	./ssd2x2_yuv_play_test2 yuv_filename dispinwidth dispinheight
-	eg:./ssd2x2_yuv_play_test2 res/YUV420SP_1280_720_NV12_video.yuv 1280 720
+./ssd2x2_yuv_play_test2 yuv_filename dispinwidth dispinheight
+eg:./ssd2x2_yuv_play_test2 res/YUV420SP_1280_720_NV12_video.yuv 1280 720
 ```
 
 
 ## ssd20x_h264_play_test1
-- 原厂demo，默认点公板屏，可播放h264/h265视频
+- Original factory demo, the default is the public screen, which can play h264/h265 videos
 ```
-	eg: ./ssd20x_h264_play_test1 res/720P25.h264 h264 1280 720 5 1024 600
+eg: ./ssd20x_h264_play_test1 res/720P25.h264 h264 1280 720 5 1024 600
 ```
 
 ## ssd20x_h264_play_test2
-- 精简ssd20x_h264_play_test1 DEMO。
-- 输入视频必须为h264 1280x720 ，默认输出为1024x600
-- 可理解VDEC和DISP关系
+- Simplified ssd20x_h264_play_test1 DEMO.
+- The input video must be h264 1280x720, the default output is 1024x600
+- Can understand the relationship between VDEC and DISP
 ```
-	eg: ./ssd20x_h264_play_test2 res/720P25.h264
+eg: ./ssd20x_h264_play_test2 res/720P25.h264
 ```
 
 ## ssd20x_player_app
-- 跨进程视频播放（只是做了个简单的播放，需要其他功能可自行增加）
-- 夸进程播放bin：https://gitee.com/mFlying/UuidSSDPlayer/tree/master/myplayer
-- 编译myplayer后，拷贝相关lib到板子上之后运行可播放视频
+- Cross-process video playback (just a simple playback, you can add other functions if you need them)
+- Kua process playback bin: https://gitee.com/mFlying/UuidSSDPlayer/tree/master/myplayer
+- After compiling myplayer, copy the relevant lib to the board and run it to play the video
 ```
-	eg: export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./res/ssd20x_player_bin/lib/
-	eg: ./ssd20x_player_app ./res/ssd20x_player_bin/MyPlayer ./res/ssd20x_player_bin/test.mp4 1024 600
-	# ./res/MyPlayer 为播放器进程，需要自己编译 ，并讲依赖库拷贝好才能运行
+eg: export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./res/ssd20x_player_bin/lib/
+eg: ./ssd20x_player_app ./res/ssd20x_player_bin/MyPlayer ./res/ssd20x_player_bin/test.mp4 1024 600
+# ./res/MyPlayer is the player process. You need to compile it yourself and copy the dependent libraries before it can run.
 ```
