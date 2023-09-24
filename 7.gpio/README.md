@@ -1,62 +1,62 @@
-# 概要
+# Summary
 ```
-1、dtsi把对应的引脚配置成普通IO模式
-如:
-<PAD_PM_LED0            PINMUX_FOR_GPIO_MODE      MDRV_PUSE_NA>,
-<PAD_PM_LED1            PINMUX_FOR_GPIO_MODE      MDRV_PUSE_NA>,
+1. dtsi configures the corresponding pin into normal IO mode
+like:
+<PAD_PM_LED0 PINMUX_FOR_GPIO_MODE MDRV_PUSE_NA>,
+<PAD_PM_LED1 PINMUX_FOR_GPIO_MODE MDRV_PUSE_NA>,
 
-2、之后进入/sys/class/gpio中可直接操作文件。
-如下概要：
-direction 
-    设置输出还是输入模式 
-    设置为输入：echo “in” > direction
-    设置为输出：echo “out” > direction
-value 
-    输出时，控制高低电平；输入时，获取高低电平 
-    高电平：echo 1 > value
-    低电平：echo 0 > value
-edge 
-    控制中断触发模式，引脚被配置为中断后可以使用poll() 函数监听引脚 
-    非中断引脚： echo “none” > edge
-    上升沿触发：echo “rising” > edge
-    下降沿触发：echo “falling” > edge
-    边沿触发：echo “both” > edge
+2. Then enter /sys/class/gpio to directly operate the file.
+Here's a summary:
+direction
+     Set output or input mode
+     Set as input: echo “in” > direction
+     Set as output: echo "out" > direction
+value
+     When outputting, control the high and low levels; when inputting, obtain the high and low levels.
+     High level: echo 1 > value
+     Low level: echo 0 > value
+edge
+     Control the interrupt trigger mode. After the pin is configured as an interrupt, you can use the poll() function to monitor the pin.
+     Non-interrupt pin: echo “none” > edge
+     Rising edge trigger: echo “rising” > edge
+     Falling edge trigger: echo “falling” > edge
+     Edge trigger: echo “both” > edge
 
-3、目前只支持上升沿或则下降沿触发。不支持边沿触发。
+3. Currently, only rising edge or falling edge triggering is supported. Edge triggering is not supported.
 
-4、用户态下即可使用poll监听
+4. Poll monitoring can be used in user mode
 
 ```
 ### common
-- 通用gpio接口
+- Universal gpio interface
 
 ### gpio_test1
-- 简单调用system接口控制gpio输出高低电平
+- Simply call the system interface to control the high and low levels of gpio output
 
 
 ### gpio_test2
-- 调用封装的通用接口控制gpio输出高低电平
+- Call the encapsulated general interface to control the high and low levels of gpio output
 
 ### gpio_test_input
-- 调用封装的通用接口，通过中断的方式检测按键输入。
-- 中断 不支持边缘触发方式。。平台驱动问题
+- Call the encapsulated general interface to detect key input through interrupts.
+- Interrupt does not support edge triggering. . Platform driver issues
 
 
 ### gpio_test_fast_rollover
-- SSD20x V030 上验证测试
-- 直接调用寄存器实现快速翻转 
-- 寄存器操作参考`kernel/drivers/sstar/samples/riu.c`
-- 寄存器查看数据手册
-- 通过操作寄存器的方式，翻转速度可达21.6MHz
-- 关键：bit5：（0：output ，1：intput）bit4（0：输出低电平，1：输出高电平）bit0：（当前IO口读取到的电平数值）
-- eg:
+- Verification test on SSD20x V030
+- Directly call registers to achieve fast flipping
+- Register operation reference `kernel/drivers/sstar/samples/riu.c`
+- Register view data sheet
+- By operating registers, the flip speed can reach 21.6MHz
+- Key: bit5: (0: output, 1: input) bit4 (0: output low level, 1: output high level) bit0: (level value read by the current IO port)
+-eg:
 ```
-#shell 命令按如下操作可控制gpio
+#shell command can control gpio as follows
 
-# 控制 gpio43（TTL24）
-    拉高： riu_w 0x103C 0x38 0x0010     
-    拉低 ：riu_w 0x103C 0x38 0x0000
-# 控制 gpio11 (SPI0_DO)
-    拉高： riu_w 0x103C 0x0b 0x0010     
-    拉低 ：riu_w 0x103C 0x0b 0x0000
+#Control gpio43 (TTL24)
+     Pull high: riu_w 0x103C 0x38 0x0010
+     Pull low: riu_w 0x103C 0x38 0x0000
+#Control gpio11 (SPI0_DO)
+     Pull high: riu_w 0x103C 0x0b 0x0010
+     Pull low: riu_w 0x103C 0x0b 0x0000
 ```
