@@ -1,31 +1,31 @@
-# 概要
-## 注意
-- 必须先初始化过panel才可使用这些demo
-- SSD20x 需要先后台运行初始化panel的应用，后才能运行fbdemo 
-- SSD2x2 平台panel初始化在boot阶段做了，如果有bootlogo显示则证明初始化过panel了
+# Summary
+## Notice
+- The panel must be initialized before you can use these demos
+- SSD20x needs to run the application that initializes the panel in the background before running fbdemo.
+- The SSD2x2 platform panel is initialized during the boot phase. If the boot logo is displayed, it proves that the panel has been initialized.
 
-## 说明
+## illustrate
 ### common
-- 通用fb接口
-- fb 信息打印接口
-- fb 简单矩形填充接口
+- Universal FB interface
+- fb information printing interface
+- fb simple rectangle filling interface
 
 ### fb_info
-- 打印fb 所有信息demo
+- Print all fb information demo
 
 ### fb_rect_test
-- 简单fb矩形填充demo
-- 可填充 RGB8888/565/1444/1555类型
+- Simple fb rectangle filling demo
+- Fillable RGB8888/565/1444/1555 type
 
 ### bmp_img_24bit
-- 显示24bit的图片到ARGB888上
+- Display 24bit pictures on ARGB888
 - eg:`./bmp_img_24bit res/saturation_800x480_24bit.bmp`
 
 ### jpeg_img
-- 可显示jpg图片到fb上
-- eg：
+- Can display jpg pictures on FB
+-eg:
 ```shell
-# 指定libjpeg库路径
+#Specify libjpeg library path
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib
 ./jpeg_img res/detail.jpg
 ```
