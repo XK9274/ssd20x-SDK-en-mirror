@@ -52,7 +52,7 @@ Original source: https://gitee.com/mFlying/ssd2xx-demo.git
 
 ```shell
      git clone https://github.com/XK9274/ssd20x-SDK-en-mirror
-     cd ssd2xx-demo
+     cd ssd20x-SDK-en-mirror
      git submodule init
      git submodule update
 ```
