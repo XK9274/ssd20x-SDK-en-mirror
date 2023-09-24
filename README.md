@@ -1,3 +1,5 @@
+Original source: https://gitee.com/mFlying/ssd2xx-demo.git
+
 # SSD series application demo<a name="demoDoc"></a>
 
 - [1. Summary](#demoDoc1)
