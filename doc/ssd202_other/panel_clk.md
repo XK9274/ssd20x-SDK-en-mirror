@@ -1,14 +1,14 @@
-# SSD20X 点屏限制，判断panel能不能点
-### 说明
-- 判断支不支持panel主要看panel的clk有没有在SSD2X的支持范围内
+# SSD20X screen click limit, determine whether the panel can be clicked
+### illustrate
+- Determining whether the panel is supported mainly depends on whether the clk of the panel is within the support range of SSD2X
 
-### ssd20x clk的spec如下：
-- TTL输出理论CLK支持范围9Mhz-75Mhz，
-   - 计算方法： htotal * vtotal * fps
-- MIPI DSI输出理论CLK支持范围100Mbps/lane – 1.5Gbps/lane 
-   - 计算方法：H_Total*V_Total*FPS*BitsPerPixel/lane number  
-   - BitsPerPixel=24(RGB888)/18(RGB666)/16(RGB565)
+### The spec of ssd20x clk is as follows:
+- TTL output theory CLK supports range 9Mhz-75Mhz,
+    - Calculation method: htotal * vtotal * fps
+- MIPI DSI output theoretical CLK support range 100Mbps/lane – 1.5Gbps/lane
+    - Calculation method: H_Total*V_Total*FPS*BitsPerPixel/lane number
+    - BitsPerPixel=24(RGB888)/18(RGB666)/16(RGB565)
 
 
-### 其他
-- 点过7Mhz的TTL屏，所以差的不是很多的话，还是有机会能正常点屏
+### other
+- I have clicked on a 7Mhz TTL screen, so if the difference is not too big, there is still a chance that I can click on the screen normally.
