@@ -1,17 +1,17 @@
-# 说明
-- SSD20x内置RTC。
-- 电流0.001mA（见HDK）
-- RTC电压正常是2.0V-3.3V
-- 硬件电路可参考HDK。
+# illustrate
+- SSD20x has built-in RTC.
+- Current 0.001mA (see HDK)
+- The normal RTC voltage is 2.0V-3.3V
+- Please refer to HDK for hardware circuit.
 
-# 配置说明
-- 需要在kernel中打开对应的配置RTC才能使用
-- 在kernel 文件夹中`make menuconfig`
-![配置说明](https://gitee.com/mFlying/flying_picgo_img/raw/master/PicGo-updata-img/RTC_config.png)
+# Configuration instructions
+- You need to open the corresponding configuration RTC in the kernel to use it
+- `make menuconfig` in kernel folder
+![Configuration instructions](https://gitee.com/mFlying/flying_picgo_img/raw/master/PicGo-updata-img/RTC_config.png)
 
-# RTC使用参考
-- RTC采用标准的LINUX框架，能够使用统一的接口来操作RTC
-- 先使用`data`命令查看当前linux时间，和设置时间
-- `hwclock`命令可用来查看RTC的时间
-- `hwclock -w`命令可将“data”命令设置的时间写入RTC中
-- 之后断电重启后可通过hwlock命令读取RTC时间。（原厂文档参考“RTC使用参考”）
+#RTC usage reference
+- RTC adopts the standard LINUX framework and can use a unified interface to operate RTC
+- First use the `data` command to view the current Linux time and set the time
+- The `hwclock` command can be used to view the RTC time
+- The `hwclock -w` command can write the time set by the "data" command into the RTC
+- After a power outage and restart, the RTC time can be read through the hwlock command. (Refer to "RTC Usage Reference" for the original manufacturer's documentation)
