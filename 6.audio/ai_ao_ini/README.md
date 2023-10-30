@@ -27,3 +27,9 @@
 **Note:** All audio files should be located in the `wav` directory.
 
 - **Specific Playback:** 
+
+
+## API Description
+- For more details on the API, refer to the following files:
+- `audio_ao_par.h`
+- `audio_ai_par.h`
