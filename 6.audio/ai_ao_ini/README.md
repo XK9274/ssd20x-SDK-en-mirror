@@ -1,28 +1,29 @@
-# audio_ini_par
+# `audio_ini_par`
 
-### Introduction
-Load the ini file and set the default audio parameters.
-Divided into AO and AI. The settings are separated.
-If there is no INI file, it will use the default configuration.
+## Introduction
+- **Purpose:** Load the `.ini` file and set the default audio parameters.
+- **Sections:** Divided into AO and AI. Each has its own settings.
+- **Default Configuration:** If there is no INI file provided, the program will use a built-in default configuration.
 
-After compiling, two DEMOs are produced:
-    load_audio_ai_tmp
-    load_audio_ao_tmp
-The default generated ini filenames are:
-audio_ai_par.ini
-audio_ao_par.ini
+## DEMO Generation
+- After compiling, the following demos are produced:
+  - `load_audio_ai_tmp`
+  - `load_audio_ao_tmp`
+- Default generated `.ini` filenames:
+  - `audio_ai_par.ini`
+  - `audio_ao_par.ini`
 
-The generated demo is in the project's bin folder.
-Copy to the board and execute the ai DEMO:
-    ./load_audio_ai_tmp 
-After running, it starts AMIC recording. You need to manually stop it with “ctrl+c”, which will close and produce the Chn0_Amic_8K_16bit_MONO.wav recording file.
-    ./load_audio_ao_tmp Chn0_Amic_8K_16bit_MONO.wav
-It can play this, or you can play your own audio file directly.
-If you directly execute ./load_audio_ao_tmp by default, it will play the ./8K_16bit_MONO_60s.wav file.
-Audio files are in the wav folder.
+## Execution
+1. The generated demos are located in the project's `bin` folder.
+2. Transfer them to the board.
+3. Execute the ai DEMO: `./load_audio_ai_tmp`
+   - This begins AMIC recording.
+   - Manual termination required using “ctrl+c”.
+   - Produces `Chn0_Amic_8K_16bit_MONO.wav` recording file.
+4. Play the recording: `./load_audio_ao_tmp Chn0_Amic_8K_16bit_MONO.wav`
+   - Alternatively, you can play your own audio file.
+   - Default execution (`./load_audio_ao_tmp`) plays the `./8K_16bit_MONO_60s.wav` file.
 
-To specify playback:
-    ./load_audio_ao_tmp ./wav/8K_16bit_MONO_60s.wav    
+**Note:** All audio files should be located in the `wav` directory.
 
-### API Description
-See `audio_ao_par.h` and `audio_ai_par.h`.
+- **Specific Playback:** 
