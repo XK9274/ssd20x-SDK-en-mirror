@@ -1,33 +1,28 @@
 # audio_ini_par
 
-### 介绍
-##### 加载ini文件，设置音频默认参数
-##### 分为AO、AI。设置分开。
-##### 若本身无INI文件则会默认配置
-##### 
-``` 
-编译后，生产DEMO有两个：
+### Introduction
+Load the ini file and set the default audio parameters.
+Divided into AO and AI. The settings are separated.
+If there is no INI file, it will use the default configuration.
+
+After compiling, two DEMOs are produced:
     load_audio_ai_tmp
     load_audio_ao_tmp
-    默认生成的ini文件名为
+The default generated ini filenames are:
 audio_ai_par.ini
 audio_ao_par.ini
-```
 
-##### 生成的demo在工程下的bin文件夹
-```
-拷贝至板子上，执行ai DMEO。
+The generated demo is in the project's bin folder.
+Copy to the board and execute the ai DEMO:
     ./load_audio_ai_tmp 
- 运行后，开启AMIC录音。需要手动停止“ctrl+c”，关闭生成Chn0_Amic_8K_16bit_MONO.wav录音文件
+After running, it starts AMIC recording. You need to manually stop it with “ctrl+c”, which will close and produce the Chn0_Amic_8K_16bit_MONO.wav recording file.
     ./load_audio_ao_tmp Chn0_Amic_8K_16bit_MONO.wav
-可播放，也可直接播放自己的音频文件。
-若直接执行./load_audio_ao_tmp默认，播放./8K_16bit_MONO_60s.wav文件
-音频文件在wav文件夹下
+It can play this, or you can play your own audio file directly.
+If you directly execute ./load_audio_ao_tmp by default, it will play the ./8K_16bit_MONO_60s.wav file.
+Audio files are in the wav folder.
 
-指定播放
+To specify playback:
     ./load_audio_ao_tmp ./wav/8K_16bit_MONO_60s.wav    
-```
-### API说明
-##### 见 `audio_ao_par.h`和 `audio_ai_par.h`
 
-
+### API Description
+See `audio_ao_par.h` and `audio_ai_par.h`.
